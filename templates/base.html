@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>Cringe.gg</title>
+        {% block javascript %}{% endblock %}
+    </head>
+
+    <body>
+        <div>
+            <form action="/matchhistory" method="get">
+                <input id="autofocusinput" name="playername" autocomplete="off" autofocus type="text">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
+        <div id="data">
+            {% block div %}{% endblock %}
+        </div>
+    </body>
+</html>

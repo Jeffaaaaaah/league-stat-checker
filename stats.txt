@@ -1,0 +1,45 @@
+davinci gates: blue team
+Rank: BRONZE II
+Winrate: 44.29% 
+Wins: 31 Loses: 39
+
+alecbcole: blue team
+Rank: BRONZE I
+Winrate: 49.64% 
+Wins: 279 Loses: 283
+
+Kuiben: blue team
+Rank: BRONZE I
+Winrate: 49.60% 
+Wins: 125 Loses: 127
+
+jkf20: blue team
+Rank: BRONZE II
+Winrate: 52.70% 
+Wins: 430 Loses: 386
+
+LeanSippaXD: blue team
+Rank: BRONZE II
+Winrate: 46.09% 
+Wins: 53 Loses: 62
+
+HotDog Piss: red team
+Rank: SILVER IV
+Winrate: 52.20% 
+Wins: 237 Loses: 217
+
+Moose Milk: red team
+Rank: BRONZE I
+Winrate: 41.58% 
+Wins: 121 Loses: 170
+
+Unpracticed: red team
+Rank: BRONZE I
+Winrate: 55.77% 
+Wins: 29 Loses: 23
+
+Blacklightningx1: red team
+Rank: SILVER IV
+Winrate: 48.99% 
+Wins: 484 Loses: 504
+
