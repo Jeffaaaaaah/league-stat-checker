@@ -3,3 +3,4 @@ __pycache__
 .env
 stuff.txt
 logs.txt
+tsconfig.json
