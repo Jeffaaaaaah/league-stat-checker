@@ -1,5 +1,14 @@
-import cringe, threading, time, os, json
+import Backend
+from dotenv import load_dotenv
+import threading, time, os, json
 from flask import Flask, render_template, redirect, request
+
+
+load_dotenv()
+KEY = os.getenv("RIOT_API")
+backend = Backend.App(KEY)
+backend_player = Backend.Player(KEY, player='') #use when implementing cookies
+
 
 app = Flask(__name__)
 

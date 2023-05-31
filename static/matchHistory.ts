@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state = State.loading;
     process();
 
-    document.getElementById('button')?.addEventListener("click", (e) => {
+    document.getElementById('button')?.addEventListener("click", (e) => { //testing button can remove later
         console.log('click');
         fetchMatchHistory('hello');
     });

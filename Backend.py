@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import requests
 
-class cringe:
+class App:
     def __init__(self, token):
         self.TOKEN = token
 
@@ -16,21 +16,25 @@ class cringe:
     def sum_by_name(self, name):
         url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
         return requests.get(url + name + '?api_key=' + self.TOKEN).json()
+    
 
-    #list of matches in conological order
+    #list of matches in cronological order
     def match_history_by_puuid(self, puuid, start=0, count=20):
         url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/"
         query = "/ids?start=" + str(start) + "&count=" + str(count) + "&api_key="
         return requests.get(url + puuid + query + self.TOKEN).json()
+    
         
     #list of matches in conological order
     def match_history_by_name(self, name, start=0, count=20):
         return self.match_history_by_puuid(self.sum_by_name(name)['puuid'], start, count)
+    
 
     #gets the match data of most recent game or inputed game
     def match_data(self, name='', number=0):
         url = "https://americas.api.riotgames.com/lol/match/v5/matches/"
         return requests.get(url + self.match_history_by_name(name)[number] + '?api_key=' + self.TOKEN).json()
+    
 
     #gets data for named player only from most recent match inputed game
     def player_data(self, name='', number=0):
@@ -39,6 +43,7 @@ class cringe:
         for x in people:
             if puuid == x['puuid']:
                 return x
+            
 
     #checks if player is in a game, status 404 means data not found which means is not in a active game, champ select no longer counts
     def is_in_game(self, name):
@@ -49,6 +54,8 @@ class cringe:
             return True
         else:
             return False
+        
+
     #gameId, gameType, gameStartTime, mapId, gameLength, platformId, gameMode, bannedChampions, gameQueueConfigId, observers, participants
     def current_game(self, name):
         url = 'https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
@@ -58,6 +65,7 @@ class cringe:
             return False
         else:
             return data.json()
+        
 
     #participants
     #championId, perks, profileIconId, bot, teamId, summonerName, summonerId, spell1Id, spell2Id, gameCustomizationObjects
@@ -76,11 +84,13 @@ class cringe:
                 player = x
                 print(string.format(player['summonerName'], teams[player['teamId']], 'stats'))
 
+
     #leagueId, summonerId, summonerName, queueType, tier, rank, leageuPoints, wins, losses, hotStreak, veteran, freshBlood, inactive
     def rank(self, name):
         url = 'https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
         id = self.sum_by_name(name)['id']
         return requests.get(url + id + "?api_key=" + self.TOKEN).json()
+    
         
     def rank_stats(self, name):
         data = self.rank(name)[0]
@@ -91,28 +101,39 @@ class cringe:
 
 
 
-class cringePlayer(cringe):
+class Player(App):
     def __init__(self, token, player=''):
         super().__init__(token)
         self.name = player
+
+
+    def set_name(self, name=""):
+        self.name=name
     
+
     def account(self):
         return self.sum_by_name(self.name)
     
+    
     def match_history(self):
         return self.match_history_by_name(self.name)
+    
 
     def match_data_all(self, number=0):
         return self.match_data(name=self.name, number=number)
+    
 
     def match_data_self(self, number=0):
         return self.player_data(name=self.name, number=number)
     
+    
     def in_game(self):
         return self.is_in_game(self.name)
+    
 
     def current(self):
         return self.current_game(self.name)
+    
     
     def current_stats(self):
         data = self.current()
@@ -134,6 +155,7 @@ class cringePlayer(cringe):
                 except:
                     pass
 
+
     def self_stats(self):
         data = self.rank(self.name)[0]
         string = 'Rank: {}\nWinrate: {:.2f}% \nWins: {} Loses: {}\n'
@@ -145,7 +167,7 @@ class cringePlayer(cringe):
 def main():
     load_dotenv()
     KEY = os.getenv("RIOT_API")
-    player = cringePlayer(KEY, "jkf20")
+    player = Player(KEY, "jkf20")
     player.current_stats()
 
 if __name__ == "__main__":
