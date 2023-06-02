@@ -7,7 +7,7 @@ from flask import Flask, render_template, redirect, request
 load_dotenv()
 KEY = os.getenv("RIOT_API")
 backend = Backend.App(KEY)
-backend_player = Backend.Player(KEY, player='') #use when implementing cookies
+backend_player = Backend.Player(KEY, name='') #use when implementing cookies
 
 
 app = Flask(__name__)
@@ -32,7 +32,13 @@ def matchHistory():
         return render_template("matchHistory.html", PLAYERNAME=query)
     
     
-@app.route('/api/matchhistory', methods=['POST'])
+######################BACKEND##############################
+
+@app.route('/api/sum_by_name', methods=['POST'])
+def sum_by_name():
+    pass
+
+@app.route('/api/match_history_by_name', methods=['POST'])
 def data():
     name = request.get_json()
     print(name)
@@ -43,6 +49,8 @@ def data():
         for y in range(10):
             x['matches'].append({'match': str(y)})
         return json.dumps({'matches':[1, 2, 3]})
+    
+@app.route('/api/')
 
 ###########################################################################################################
 

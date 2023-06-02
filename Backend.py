@@ -45,15 +45,9 @@ class App:
                 return x
             
 
-    #checks if player is in a game, status 404 means data not found which means is not in a active game, champ select no longer counts
+    #checks if player is in a game, status 404 means data not found which means is not in a active game, champ select no counts as active game
     def is_in_game(self, name):
-        url = 'https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
-        id = self.sum_by_name(name)['id']
-        data = requests.get(url + id + "?api_key=" + self.TOKEN).json()
-        if data['status']['status_code'] == 404:
-            return True
-        else:
-            return False
+        return self.current_game(name) != False
         
 
     #gameId, gameType, gameStartTime, mapId, gameLength, platformId, gameMode, bannedChampions, gameQueueConfigId, observers, participants
@@ -102,41 +96,37 @@ class App:
 
 
 class Player(App):
-    def __init__(self, token, player=''):
+    def __init__(self, token, name=''):
         super().__init__(token)
-        self.name = player
+        self.name = name
 
 
     def set_name(self, name=""):
-        self.name=name
+        self.name = name
     
 
-    def account(self):
-        return self.sum_by_name(self.name)
+    def sum_by_name(self):
+        return App.sum_by_name(self.name)
     
     
-    def match_history(self):
-        return self.match_history_by_name(self.name)
-    
-
-    def match_data_all(self, number=0):
-        return self.match_data(name=self.name, number=number)
+    def match_history_by_name(self):
+        return App.match_history_by_name(self.name)
     
 
-    def match_data_self(self, number=0):
-        return self.player_data(name=self.name, number=number)
+    def match_data(self, number=0):
+        return App.match_data(name=self.name, number=number)
+        
     
-    
-    def in_game(self):
-        return self.is_in_game(self.name)
+    def is_in_game(self):
+        return App.is_in_game(self.name)
     
 
-    def current(self):
-        return self.current_game(self.name)
+    def current_game(self):
+        return App.current_game(self.name)
     
     
-    def current_stats(self):
-        data = self.current()
+    def current_game_stats(self):
+        data = self.current_game()
         if not data:
             print("not in game")
         else:
@@ -167,8 +157,9 @@ class Player(App):
 def main():
     load_dotenv()
     KEY = os.getenv("RIOT_API")
-    player = Player(KEY, "jkf20")
-    player.current_stats()
+    player = Player(KEY, "JustNixxy")
+    data = player.in_game()
+    print(data)
 
 if __name__ == "__main__":
     main()
