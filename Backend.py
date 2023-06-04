@@ -158,7 +158,7 @@ def main():
     load_dotenv()
     KEY = os.getenv("RIOT_API")
     player = Player(KEY, "JustNixxy")
-    data = player.in_game()
+    data = player.is_in_game()
     print(data)
 
 if __name__ == "__main__":

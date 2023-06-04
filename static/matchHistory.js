@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const fetch_1 = require("./fetch");
 var contentBody;
 var State;
 (function (State) {
@@ -20,33 +22,14 @@ const params = new URLSearchParams(window.location.search);
 function process() {
     return __awaiter(this, void 0, void 0, function* () {
         contentBody.innerHTML += params.get('playername');
-        let jason = yield fetchMatchHistory(params.get('playername')); //json is returned
+        let jason = yield (0, fetch_1.fetchMatchHistory)(params.get('playername')); //json is returned
+        //python code already handles null input for player search ^ null typing might be unessecary
         console.log(jason);
         for (let i = 0; i < jason.matches.length; i++) {
             contentBody.innerHTML += `<h1> ${jason.matches[i]}</h1>`;
         }
     });
 }
-function fetchMatchHistory(name) {
-    return fetch('/api/matchhistory', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 'playername': name }) //creates post body to be sent off
-    })
-        .then(response => {
-        if (!response.ok) {
-            throw new Error("response not ok");
-        }
-        return response.json(); //.json() returns a promise after it is finished parsing
-    })
-        .then(json => {
-        console.log(json);
-        return json;
-    })
-        .catch(e => console.log(e));
-} //fetchMatchHistory
 document.addEventListener("DOMContentLoaded", () => {
     var _a;
     contentBody = document.getElementById("data");
@@ -55,6 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     process();
     (_a = document.getElementById('button')) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
         console.log('click');
-        fetchMatchHistory('hello');
+        (0, fetch_1.fetchMatchHistory)('hello');
     });
 });
