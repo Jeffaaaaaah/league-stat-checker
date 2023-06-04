@@ -1,6 +1,6 @@
 function fetchMatchHistory(name: string | null): any { 
     //python code already handles null input for player search. null typing might be redundant
-    return fetch('/api/matchhistory',{
+    return fetch('/api/match_history_by_name',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
