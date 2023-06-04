@@ -1,11 +1,11 @@
-function fetchMatchHistory(name: string | null): any { 
+function fetchData(url: URL,  body: object): any { 
     //python code already handles null input for player search. null typing might be redundant
-    return fetch('/api/match_history_by_name',{
+    return fetch(url,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 'playername': name }) //creates post body to be sent off
+        body: JSON.stringify(body) //creates post body to be sent off
     })
     .then(response => { //checking for response error codes
         if(!response.ok) {
@@ -38,7 +38,7 @@ const params = new URLSearchParams(window.location.search);
 async function loadMatchHistory() {
 
     contentBody!.innerHTML += params.get('playername');
-    let jason: any = await fetchMatchHistory(params!.get('playername')); //json is returned
+    let jason: any = await fetchData('/api/match_history_by_name',{"playername" : params!.get('playername')}); //json is returned
     //python code already handles null input for player search ^ null typing might be unessecary
     
     console.log(jason);
