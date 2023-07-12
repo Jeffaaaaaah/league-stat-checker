@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 import requests
 
+#TODO: convert requests to use POST 
+
 class App:
     def __init__(self, token):
         self.TOKEN = token

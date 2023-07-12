@@ -32,7 +32,7 @@ def matchHistory():
         return render_template("matchHistory.html", PLAYERNAME=query)
     
     
-######################BACKEND##############################
+######################    BACKEND APIs   ##############################
 
 @app.route('/api/sum_by_name', methods=['POST'])
 def sum_by_name():
